@@ -1,55 +1,43 @@
-YouTube HD Downloader
-
-🚀 A modern, snappy web app for downloading high-quality YouTube videos (up to 8K), audio-only tracks, and even 360° videos — built with Flask, yt-dlp, and a sleek Tailwind CSS frontend.
-
 ✨ Features
+- 🎥 Download videos in **4K and 8K** quality  
+- 🎵 **Audio-only mode** for MP3 extraction  
+- 🌀 **360° video detection** and support  
+- ⚡ Clean, **snappy**, and modern UI  
+- 📊 Real-time progress updates  
+- ⬇ **Automatic browser download** when complete  
+- 🖱 One-click simplicity — paste URL and go!
 
-High-Resolution Video Downloads – Supports 4K and 8K
+📂 Folder Structure
 
-Audio-Only Mode – Extract the best available audio in MP3 format
 
-360° Video Detection – Automatically detects and labels 360° videos
-
-Clean UI/UX – Minimalist, modern, and mobile-friendly design
-
-Progress Tracking – Real-time progress bar with percentage updates
-
-Auto-Download on Completion – Browser automatically downloads when ready
-
-One-Click Simplicity – Just paste the URL and hit download
-
-Snappy Flow – Options disappear when downloading to keep UI clean
-
-📂 Project Structure
 youtube-hd-downloader/
 │
-├── templates/                  # HTML templates
-│   └── index.html               # Main UI template
+├── templates/
+│ └── index.html # Main UI
 │
-├── static/                      # (Optional) Static files like CSS/JS
+├── downloads/ # Where downloads are saved
 │
-├── downloads/                   # Saved videos/audio
+├── youtube_downloader_app.py # Flask backend
 │
-├── youtube_downloader_app.py    # Main Flask application
+├── requirements.txt # Dependencies
 │
-├── requirements.txt             # Python dependencies
-│
-└── Procfile                      # For cloud deployment
+└── Procfile # For free hosting
 
-🚀 Getting Started
+🚀 Setup Instructions
 
-Follow these steps to run the app locally:
-
-1. Clone the Repository
+1. Clone the project
+```bash
 git clone https://github.com/your-username/youtube-hd-downloader.git
 cd youtube-hd-downloader
 
-2. Create Virtual Environment
+2. Create a virtual environment
 python -m venv venv
-source venv/bin/activate   # macOS/Linux
-venv\Scripts\activate      # Windows
+# macOS/Linux
+source venv/bin/activate
+# Windows
+venv\Scripts\activate
 
-3. Install Dependencies
+3. Install dependencies
 pip install -r requirements.txt
 
 🛠 Requirements
@@ -60,7 +48,7 @@ Flask
 yt-dlp
 
 
-Additionally, make sure FFmpeg is installed:
+Also install FFmpeg:
 
 Download FFmpeg
 
@@ -69,25 +57,21 @@ Verify installation:
 ffmpeg -version
 
 ▶ Running the App
-
-Start the Flask server:
-
 python youtube_downloader_app.py
 
 
-Open your browser and navigate to:
+Open in your browser:
 
 http://127.0.0.1:5000
 
-🌍 Public Hosting
-Option 1: Render (Recommended)
+🌍 Free Hosting on Render
 
-Push this repo to GitHub.
+Push the project to GitHub.
 
-Create a free Render
- account.
+Create an account at Render
+.
 
-New → Web Service → Connect GitHub repo.
+Select New → Web Service → Connect to GitHub Repo.
 
 Use these settings:
 
@@ -95,61 +79,25 @@ Build Command:
 
 pip install -r requirements.txt
 
-
 Start Command:
 
 python youtube_downloader_app.py
 
+Deploy and get a free public URL.
 
-Deploy → Get a free public URL!
-
-💻 Technologies Used
-Tech	Purpose
-Flask	Backend web framework
-yt-dlp	YouTube downloading engine
-Tailwind CSS	Modern, responsive styling
-Alpine.js	Lightweight interactivity
-FFmpeg	Media processing & merging
-📸 Features in Action
-High-Quality Video Downloads
-
-Easily grab 4K/8K YouTube videos with a single click.
-
-Audio-Only Downloads
-
-Extract clean MP3 audio files from any video.
-
-Real-Time Progress
-
-Track download progress with a modern progress bar.
-
-🤝 Contributing
-
-Contributions are welcome!
-To get started:
-
-Fork the repo
-
-Create a feature branch (git checkout -b feature/amazing-feature)
-
-Commit changes (git commit -m 'Add amazing feature')
-
-Push to branch (git push origin feature/amazing-feature)
-
-Open a Pull Request
-
-⚡ Quick Git Commands
+💻 Tech Stack
+Tech	Use Case
+Flask	Backend framework
+yt-dlp	Download engine
+TailwindCSS	Modern UI styling
+FFmpeg	Video & audio merging
+⚡ Git Commands
 git add .
-git commit -m "feat: initial version with high-quality downloads and modern UI"
+git commit -m "feat: first release with HD download support"
 git push origin main
 
 📜 License
-
-This project is licensed under the MIT License.
-Feel free to use and modify for personal or commercial projects.
-
+Licensed under the MIT License — free to use and modify.
 💡 Credits
-
 Written by Robust
  ❤️
-Powered by yt-dlp, Flask, and open-source technologies.
