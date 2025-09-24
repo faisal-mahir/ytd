@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube HD Downloader | Robust</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.2/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900 font-sans">
+
+<div class="min-h-screen flex items-center justify-center p-4">
+<div class="bg-white/10 backdrop-blur-lg shadow-2xl rounded-xl p-8 w-full max-w-lg">
+
+<h1 class="text-4xl font-extrabold text-center text-white mb-4">🚀 YouTube HD Downloader</h1>
+
+<form method="POST" x-data="{ loading: false }" @submit="loading = true; optionsHidden = true" class="space-y-4">
+    <input type="text" name="url" required placeholder="Paste YouTube URL..."
+        class="w-full p-4 rounded-xl bg-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300">
+
+    <div x-show="!loading" class="space-y-2">
+        <label class="text-gray-200 font-semibold">Choose type:</label>
+        <div class="flex space-x-4">
+            <label class="text-gray-200 flex items-center space-x-2">
+                <input type="radio" name="media_type" value="video" checked class="accent-indigo-500"> <span>Video</span>
+            </label>
+            <label class="text-gray-200 flex items-center space-x-2">
+                <input type="radio" name="media_type" value="audio" class="accent-indigo-500"> <span>Audio</span>
+            </label>
+        </div>
+        <template x-if="{{ video_info and video_info.is_360 }}">
+            <p class="text-sm text-green-400">360° Video detected</p>
+        </template>
+    </div>
+
+    <button type="submit" 
+        class="w-full py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold flex justify-center items-center transition duration-300">
+        <span x-show="!loading">Download</span>
+        <svg x-show="loading" class="animate-spin h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+        </svg>
+    </button>
+</form>
+
+{% if task_id %}
+<div class="mt-6">
+    <div class="bg-white/20 rounded-full h-6 w-full overflow-hidden relative">
+        <div id="progress-bar" class="bg-green-500 h-6 w-0 transition-all"></div>
+        <span id="progress-text" class="absolute left-1/2 transform -translate-x-1/2 top-0 text-white font-bold">0%</span>
+    </div>
+</div>
+
+<script>
+let taskId = "{{ task_id }}";
+function updateProgress() {
+    fetch(`/progress/${taskId}`)
+        .then(res => res.json())
+        .then(data => {
+            const bar = document.getElementById('progress-bar');
+            const text = document.getElementById('progress-text');
+            bar.style.width = data.progress + '%';
+            text.textContent = data.progress + '%';
+
+            if (data.status !== 'finished' && data.status !== 'error') {
+                setTimeout(updateProgress, 1000);
+            } else if (data.status === 'finished') {
+                text.textContent = 'Download Complete! Starting download...';
+                if(data.url){
+                    const link = document.createElement('a');
+                    link.href = data.url;
+                    link.download = '';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            } else if (data.status === 'error') {
+                text.textContent = 'Error occurred!';
+            }
+        });
+}
+updateProgress();
+</script>
+{% endif %}
+
+</div>
+</div>
+
+<footer class="text-center text-gray-300 mt-6 mb-4">
+Written by <a href="https://rrad.com.bd" target="_blank" class="underline hover:text-white font-semibold">Robust</a> ❤️
+</footer>
+
+</body>
+</html>
